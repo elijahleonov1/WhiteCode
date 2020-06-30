@@ -2,7 +2,7 @@ import React from 'react'
 import { Redirect, Route } from 'react-router-dom'
 import PropTypes from 'prop-types'
 
-const PrivateRouter = ({
+const PrivateRoute = ({
     children,
     component: Component,
     isAuth = false,
@@ -36,10 +36,10 @@ const PrivateRouter = ({
     )
 }
 
-PrivateRouter.propTupes = {
+PrivateRoute.propTupes = {
     component: PropTypes.element,
     children: PropTypes.element,
     isAuth: PropTypes.bool,
 }
 
-export default PrivateRouter
+export default PrivateRoute
