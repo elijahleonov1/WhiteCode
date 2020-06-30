@@ -9,20 +9,18 @@ import {
 } from 'react-router-dom'
 import PrivateRoute from './PrivateRoute'
 import Login from '../containers/Login'
+import Header from '../components/Header'
 
 const Routers = ({ isAuth }) => {
     return (
         <Router>
             <Switch>
+                <PrivateRoute isAuth={isAuth} path={'/'}>
+                    <Header />
+                    <Route path={'/test'} render={() => <div>132213</div>} />
+                </PrivateRoute>
+
                 <Route path={'/login'} render={() => <Login />} />
-
-                <PrivateRoute
-                    exact
-                    isAuth={isAuth}
-                    path={'/'}
-                    render={() => <div>Главная</div>}
-                />
-
                 <Route render={() => <div>not found</div>} />
             </Switch>
         </Router>
