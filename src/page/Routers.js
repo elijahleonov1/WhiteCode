@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import {
     BrowserRouter as Router,
@@ -21,20 +22,25 @@ const Routers = ({ isAuth }) => {
                     path={'/'}
                     render={() => <App />}
                 />
+
                 <PrivateRouter
                     isAuth={isAuth}
                     path={'/test'}
                     render={() => <div>test</div>}
                 />
-            </Switch>
 
-            <Route render={() => <div>not found</div>} />
+                <Route render={() => <div>not found</div>} />
+            </Switch>
         </Router>
     )
 }
 
 const mapStateToProps = (state) => ({
-    isAuth: (state) => state.isAuth,
+    isAuth: false,
 })
+
+Routers.propTypes = {
+    isAuth: PropTypes.bool,
+}
 
 export default connect(mapStateToProps, null)(Routers)
