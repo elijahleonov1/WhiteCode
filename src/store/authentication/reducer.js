@@ -4,6 +4,7 @@ import {
     SHOW_SPINNER,
     HIDE_SPINNER,
     IS_AUTH_REDUX,
+    LOGOUT,
 } from './actionType'
 
 const isAuth = !!utils.loadFromLocalStorege(IS_AUTH_REDUX)
@@ -21,6 +22,11 @@ export default function authentication(state = initState, action) {
                 ...state,
                 ...action.payload,
                 isAuth: action.payload.authentication,
+            }
+        case LOGOUT:
+            return {
+                ...state,
+                isAuth: false,
             }
         case SHOW_SPINNER:
             return {

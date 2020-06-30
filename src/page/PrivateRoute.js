@@ -2,15 +2,9 @@ import React from 'react'
 import { Redirect, Route } from 'react-router-dom'
 import PropTypes from 'prop-types'
 
-const PrivateRoute = ({
-    children,
-    component: Component,
-    isAuth = false,
-    ...res
-}) => {
+const PrivateRoute = ({ children, component: Component, isAuth, ...res }) => {
     const render =
         res.render && typeof res.render === 'function' ? res.render : null
-
     return (
         <Route
             {...res}

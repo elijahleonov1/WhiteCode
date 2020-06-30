@@ -62,6 +62,7 @@ const Login = ({ isAuth, isSpinner, errorMessage, fetchLogin, showSpnner }) => {
                         <Form.Item
                             label="E-mail"
                             name="login"
+                            initialValue={'test@gmail.com'}
                             rules={[
                                 {
                                     required: true,
@@ -76,6 +77,7 @@ const Login = ({ isAuth, isSpinner, errorMessage, fetchLogin, showSpnner }) => {
                         <Form.Item
                             label="Пароль"
                             name="password"
+                            initialValue={'123456789'}
                             rules={[
                                 {
                                     required: true,

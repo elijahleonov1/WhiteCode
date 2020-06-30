@@ -22,7 +22,6 @@ import './assets/styles/index.scss'
 import * as serviceWorker from './serviceWorker'
 
 const history = createBrowserHistory()
-
 const enhancers = []
 const middleware = [thunk, routerMiddleware(history)]
 
