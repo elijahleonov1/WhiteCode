@@ -20,12 +20,18 @@ import * as serviceWorker from './serviceWorker'
 
 const history = createBrowserHistory()
 
+const initialState = {}
+const enhancers = []
+const middleware = [thunk, routerMiddleware(history)]
+
+if (process.env.NODE_ENV === 'development') {
+    enhancers.push(composeWithDevTools())
+}
+
 const store = createStore(
     rootReducer(history),
-    compose(
-        composeWithDevTools(),
-        applyMiddleware(routerMiddleware(history), thunk)
-    )
+    initialState,
+    compose(applyMiddleware(...middleware), ...enhancers)
 )
 
 ReactDOM.render(
