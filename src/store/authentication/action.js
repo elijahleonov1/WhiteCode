@@ -1,4 +1,5 @@
-import { FETCH_LOGIN } from './actionType'
+import { FETCH_LOGIN, SHOW_SPINNER, HIDE_SPINNER } from './actionType'
+
 import api from '@api'
 
 export const fetchLogin = ({ login, password }) => async (dispatch) => {
@@ -7,4 +8,8 @@ export const fetchLogin = ({ login, password }) => async (dispatch) => {
         type: FETCH_LOGIN,
         payload: data,
     })
+    dispatch({ type: HIDE_SPINNER })
 }
+
+export const showSpnner = () => (dispatch) => dispatch({ type: SHOW_SPINNER })
+export const hideSpnner = () => (dispatch) => dispatch({ type: HIDE_SPINNER })

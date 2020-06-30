@@ -10,7 +10,7 @@ const login = ({ login, password }) => {
             const isAuth = login === LOGIN && password === PASSWORD
             resolve({
                 authentication: isAuth,
-                errorMessage: isAuth ? null : 'wrong login or password',
+                errorMessage: isAuth ? '' : 'wrong login or password',
             })
         }, 2000)
     })

@@ -1,1 +1,3 @@
-export { fetchLogin } from './authentication/action'
+import * as authActions from './authentication/action'
+
+export { authActions }
