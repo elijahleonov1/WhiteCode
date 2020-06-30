@@ -1,7 +1,15 @@
-import { FETCH_LOGIN, SHOW_SPINNER, HIDE_SPINNER } from './actionType'
+import utils from '@utils'
+import {
+    FETCH_LOGIN,
+    SHOW_SPINNER,
+    HIDE_SPINNER,
+    IS_AUTH_REDUX,
+} from './actionType'
+
+const isAuth = !!utils.loadFromLocalStorege(IS_AUTH_REDUX)
 
 const initState = {
-    isAuth: false,
+    isAuth,
     isSpinner: false,
     errorMessage: '',
 }

@@ -12,6 +12,9 @@ import rootReducer from './store/rootReducer'
 import { composeWithDevTools } from 'redux-devtools-extension'
 
 import Routers from './page/Routers'
+import { authActionTypes } from './store/rootActionTypes'
+
+import utils from '@utils'
 
 import 'antd/dist/antd.css'
 import './assets/styles/index.scss'
@@ -20,7 +23,6 @@ import * as serviceWorker from './serviceWorker'
 
 const history = createBrowserHistory()
 
-const initialState = {}
 const enhancers = []
 const middleware = [thunk, routerMiddleware(history)]
 
@@ -30,9 +32,13 @@ if (process.env.NODE_ENV === 'development') {
 
 const store = createStore(
     rootReducer(history),
-    initialState,
     compose(applyMiddleware(...middleware), ...enhancers)
 )
+
+store.subscribe(() => {
+    const { auth } = store.getState()
+    utils.saveToLocalStorege(authActionTypes.IS_AUTH_REDUX, auth.isAuth)
+})
 
 ReactDOM.render(
     <Provider store={store}>
