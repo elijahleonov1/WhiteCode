@@ -4,6 +4,7 @@ import { Redirect } from 'react-router-dom'
 import PropTypes from 'prop-types'
 
 import { Form, Input, Button, Checkbox } from 'antd'
+import s from './Login.module.scss'
 
 const layout = {
     labelCol: {
@@ -13,6 +14,7 @@ const layout = {
         span: 16,
     },
 }
+
 const tailLayout = {
     wrapperCol: {
         offset: 8,
@@ -32,51 +34,50 @@ const Login = ({ isAuth }) => {
     }
 
     return (
-        <Form
-            {...layout}
-            name="basic"
-            initialValues={{
-                remember: true,
-            }}
-            onFinish={onFinish}
-            onFinishFailed={onFinishFailed}
-        >
-            <Form.Item
-                label="Username"
-                name="username"
-                rules={[
-                    {
-                        required: true,
-                        message: 'Please input your username!',
-                    },
-                ]}
+        <div className={s.FormWrapper}>
+            <Form
+                {...layout}
+                name="basic"
+                initialValues={{
+                    remember: true,
+                }}
+                onFinish={onFinish}
+                onFinishFailed={onFinishFailed}
             >
-                <Input />
-            </Form.Item>
+                <Form.Item
+                    label="E-mail"
+                    name="username"
+                    rules={[
+                        {
+                            required: true,
+                            type: 'email',
+                            message: 'некорректный e-mail',
+                        },
+                    ]}
+                >
+                    <Input />
+                </Form.Item>
 
-            <Form.Item
-                label="Password"
-                name="password"
-                rules={[
-                    {
-                        required: true,
-                        message: 'Please input your password!',
-                    },
-                ]}
-            >
-                <Input.Password />
-            </Form.Item>
+                <Form.Item
+                    label="Пароль"
+                    name="password"
+                    rules={[
+                        {
+                            required: true,
+                            message: 'Пожалуйста введите пароль!',
+                        },
+                    ]}
+                >
+                    <Input.Password />
+                </Form.Item>
 
-            <Form.Item {...tailLayout} name="remember" valuePropName="checked">
-                <Checkbox>Remember me</Checkbox>
-            </Form.Item>
-
-            <Form.Item {...tailLayout}>
-                <Button type="primary" htmlType="submit">
-                    Submit
-                </Button>
-            </Form.Item>
-        </Form>
+                <Form.Item {...tailLayout}>
+                    <Button type="primary" htmlType="submit">
+                        Воайти
+                    </Button>
+                </Form.Item>
+            </Form>
+        </div>
     )
 }
 
