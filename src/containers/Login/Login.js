@@ -3,6 +3,8 @@ import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom'
 import PropTypes from 'prop-types'
 
+import { fetchLogin } from '../../store/rootActions'
+
 import { Form, Input, Button, Checkbox } from 'antd'
 import s from './Login.module.scss'
 
@@ -22,11 +24,12 @@ const tailLayout = {
     },
 }
 
-const Login = ({ isAuth }) => {
+const Login = ({ isAuth, fetchLogin }) => {
     if (isAuth) return <Redirect to={{ pathname: '/' }} />
 
     const onFinish = (values) => {
         console.log('Success:', values)
+        fetchLogin(values)
     }
 
     const onFinishFailed = (errorInfo) => {
@@ -46,7 +49,7 @@ const Login = ({ isAuth }) => {
             >
                 <Form.Item
                     label="E-mail"
-                    name="username"
+                    name="login"
                     rules={[
                         {
                             required: true,
@@ -87,6 +90,9 @@ const mapStateToProps = (state) => ({
     isAuth: state.auth.isAuth,
 })
 
-const mapDispatchToProps = (dispatch) => ({})
+const mapDispatchToProps = (dispatch) => ({
+    fetchLogin: ({ login, password }) =>
+        dispatch(fetchLogin({ login, password })),
+})
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login)
