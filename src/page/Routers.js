@@ -31,7 +31,7 @@ const Routers = ({ isAuth }) => {
 }
 
 const mapStateToProps = (state) => ({
-    isAuth: false,
+    isAuth: state.auth.isAuth,
 })
 
 Routers.propTypes = {
