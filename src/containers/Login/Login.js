@@ -14,6 +14,7 @@ Login.propTypes = {}
 const mapStateToProps = (state) => ({
     isAuth: state.auth.isAuth,
 })
+
 const mapDispatchToProps = (dispatch) => ({})
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login)
