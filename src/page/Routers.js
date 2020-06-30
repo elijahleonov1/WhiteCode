@@ -8,7 +8,6 @@ import {
     Switch,
 } from 'react-router-dom'
 import PrivateRoute from './PrivateRoute'
-import App from '../App'
 import Login from '../containers/Login'
 
 const Routers = ({ isAuth }) => {
@@ -21,7 +20,7 @@ const Routers = ({ isAuth }) => {
                     exact
                     isAuth={isAuth}
                     path={'/'}
-                    render={() => <App />}
+                    render={() => <div>Главная</div>}
                 />
 
                 <Route render={() => <div>not found</div>} />
