@@ -9,12 +9,13 @@ import {
 } from 'react-router-dom'
 import PrivateRouter from './PrivateRouter'
 import App from '../App'
+import Login from '../containers/Login'
 
 const Routers = ({ isAuth }) => {
     return (
         <Router>
             <Switch>
-                <Route path={'/login'} render={() => <div>login</div>} />
+                <Route path={'/login'} render={() => <Login />} />
 
                 <PrivateRouter
                     exact
