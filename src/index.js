@@ -11,8 +11,8 @@ import rootReducer from './store/rootReducer'
 
 import { composeWithDevTools } from 'redux-devtools-extension'
 
+import Routers from './page/Routers'
 import './assets/styles/index.scss'
-import App from './App'
 import * as serviceWorker from './serviceWorker'
 
 const history = createBrowserHistory()
@@ -20,14 +20,15 @@ const history = createBrowserHistory()
 const store = createStore(
     rootReducer(history),
     compose(
-        composeWithDevTools(applyMiddleware(routerMiddleware(history), thunk))
+        composeWithDevTools(),
+        applyMiddleware(routerMiddleware(history), thunk)
     )
 )
 
 ReactDOM.render(
     <Provider store={store}>
         <ConnectedRouter history={history}>
-            <App />
+            <Routers />
         </ConnectedRouter>
     </Provider>,
     document.getElementById('root')
