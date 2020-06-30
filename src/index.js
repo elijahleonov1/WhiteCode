@@ -12,7 +12,10 @@ import rootReducer from './store/rootReducer'
 import { composeWithDevTools } from 'redux-devtools-extension'
 
 import Routers from './page/Routers'
+
+import 'antd/dist/antd.css'
 import './assets/styles/index.scss'
+
 import * as serviceWorker from './serviceWorker'
 
 const history = createBrowserHistory()
