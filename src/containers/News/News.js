@@ -1,5 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import { newsActions } from '../../store/rootActions'
+
 import PropTypes from 'prop-types'
 
 import { Card, Avatar } from 'antd'
@@ -14,10 +16,13 @@ import s from './News.module.scss'
 
 const { Meta } = Card
 
-const News = ({ news }) => {
-    const CardNews = (...props) => (
+const News = ({ news, deleteNews }) => {
+    const handleDeleteNews = (id) => {
+        deleteNews(id)
+    }
+
+    const CardNews = ({ data }) => (
         <Card
-            {...props}
             style={{ width: 300, margin: 5 }}
             cover={
                 <img
@@ -26,17 +31,14 @@ const News = ({ news }) => {
                 />
             }
             actions={[
-                <DeleteOutlined key="delete" />,
+                <DeleteOutlined
+                    key="delete"
+                    onClick={() => handleDeleteNews(data.id)}
+                />,
                 <EditOutlined key="edit" />,
             ]}
         >
-            <Meta
-                avatar={
-                    <Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
-                }
-                title="Card title"
-                description="This is the description"
-            />
+            <Meta title="Card title" description="This is the description" />
         </Card>
     )
     return (
@@ -51,7 +53,9 @@ const News = ({ news }) => {
 const mapStateToProps = (state) => ({
     news: state.news,
 })
-const mapDispatchToProps = (dispatch) => ({})
+const mapDispatchToProps = (dispatch) => ({
+    deleteNews: (id) => dispatch(newsActions.deleteNews(id)),
+})
 
 News.propTypes = {}
 
