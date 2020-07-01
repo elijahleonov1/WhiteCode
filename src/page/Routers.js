@@ -31,7 +31,7 @@ const Routers = ({ isAuth, logout }) => {
             {!isAuth && <Redirect to="/login" />}
 
             <Switch>
-                <Redirect exact from="/" to="/admin-panel/news" />
+                {isAuth && <Redirect exact from="/" to="/admin-panel/news" />}
 
                 <Route path={'/admin-panel'}>
                     <Header logout={handleLogout} />
