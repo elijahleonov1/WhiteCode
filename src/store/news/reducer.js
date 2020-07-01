@@ -47,12 +47,12 @@ export const deleteNews = (state, id) => {
 }
 
 export const addNews = (state, news) => {
-    const neweId = state.length
+    const newsId = state.length
     return [
         ...state,
         {
-            id: neweId,
             ...news,
+            id: newsId,
             editDate: new Date().toISOString(),
         },
     ]

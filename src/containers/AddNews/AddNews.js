@@ -1,11 +1,11 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { connect } from 'react-redux'
 import { newsActions } from '../../store/rootActions'
 
 import PropTypes from 'prop-types'
 
-import { Form, Input, Button, Upload } from 'antd'
-import { UploadOutlined, InboxOutlined } from '@ant-design/icons'
+import { Form, Input, Button, Upload, Modal } from 'antd'
+import { UploadOutlined, InboxOutlined, PlusOutlined } from '@ant-design/icons'
 import s from './AddNews.module.scss'
 
 const layout = {
@@ -23,12 +23,23 @@ const tailLayout = {
     },
 }
 
+function getBase64(file) {
+    return new Promise((resolve, reject) => {
+        const reader = new FileReader()
+        reader.readAsDataURL(file)
+        reader.onload = () => resolve(reader.result)
+        reader.onerror = (error) => reject(error)
+    })
+}
+
 const AddNews = ({ addNews }) => {
     const [form] = Form.useForm()
+    const [previewImage, setPreviewImage] = useState('')
+    const [fileList, setFileList] = useState([])
 
     const onFinish = (values) => {
-        console.log('Success:', values)
-        addNews(values)
+        addNews({ ...values, src: previewImage })
+        setPreviewImage('')
         form.resetFields()
     }
 
@@ -36,15 +47,19 @@ const AddNews = ({ addNews }) => {
         console.log('Failed:', errorInfo)
     }
 
-    const normFile = (e) => {
-        console.log('Upload event:', e)
-
-        if (Array.isArray(e)) {
-            return e
+    const handleChange = async ({ file }) => {
+        if (!file.url && !file.preview) {
+            file.preview = await getBase64(file.originFileObj)
         }
-
-        return e && e.fileList
+        setPreviewImage(file.url || file.preview)
     }
+
+    const uploadButton = (
+        <div>
+            <PlusOutlined />
+            <div className="ant-upload-text">Добавить</div>
+        </div>
+    )
 
     return (
         <div className={s.AddNewsWrapper}>
@@ -86,18 +101,20 @@ const AddNews = ({ addNews }) => {
                 </Form.Item>
 
                 <Form.Item label="Картинка">
-                    <Form.Item
-                        name="src"
-                        valuePropName="fileList"
-                        getValueFromEvent={normFile}
-                        noStyle
+                    <Upload
+                        listType="picture-card"
+                        fileList={fileList}
+                        onChange={handleChange}
                     >
-                        <Upload.Dragger name="files" action="/upload.do">
-                            <p className="ant-upload-drag-icon">
-                                <InboxOutlined />
-                            </p>
-                        </Upload.Dragger>
-                    </Form.Item>
+                        {previewImage ? null : uploadButton}
+                    </Upload>
+                    {previewImage && (
+                        <img
+                            alt="example"
+                            style={{ width: '100%' }}
+                            src={previewImage}
+                        />
+                    )}
                 </Form.Item>
 
                 <Form.Item {...tailLayout}>

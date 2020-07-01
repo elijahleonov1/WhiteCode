@@ -24,12 +24,7 @@ const News = ({ news, deleteNews }) => {
     const CardNews = ({ data }) => (
         <Card
             style={{ width: 300, margin: 5 }}
-            cover={
-                <img
-                    alt="example"
-                    src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
-                />
-            }
+            cover={<img alt="example" src={data.src} />}
             actions={[
                 <DeleteOutlined
                     key="delete"
