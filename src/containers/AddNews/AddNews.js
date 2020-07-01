@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { connect } from 'react-redux'
+import { useParams } from 'react-router-dom'
 import { newsActions } from '../../store/rootActions'
 
 import PropTypes from 'prop-types'
@@ -32,14 +33,22 @@ function getBase64(file) {
     })
 }
 
-const AddNews = ({ addNews }) => {
+const AddNews = ({ getNews, addNews, editNews }) => {
+    const { id: queryId } = useParams()
+    const news = getNews(queryId) || {}
+
     const [form] = Form.useForm()
-    const [previewImage, setPreviewImage] = useState('')
+    const [previewImage, setPreviewImage] = useState(news.src || '')
     const [fileList, setFileList] = useState([])
 
     const onFinish = (values) => {
-        addNews({ ...values, src: previewImage })
-        setPreviewImage('')
+        if (queryId) {
+            editNews({ ...values, src: previewImage, id: queryId })
+        } else {
+            addNews({ ...values, src: previewImage })
+            setPreviewImage('')
+        }
+
         form.resetFields()
     }
 
@@ -77,6 +86,7 @@ const AddNews = ({ addNews }) => {
                 <Form.Item
                     label="Заголовок"
                     name="title"
+                    initialValue={news.title}
                     rules={[
                         {
                             required: true,
@@ -89,7 +99,8 @@ const AddNews = ({ addNews }) => {
 
                 <Form.Item
                     label="Описание"
-                    name="descriptors"
+                    name="descriptions"
+                    initialValue={news.descriptions}
                     rules={[
                         {
                             required: true,
@@ -127,10 +138,14 @@ const AddNews = ({ addNews }) => {
     )
 }
 
-const mapStateToProps = (state) => ({})
+const mapStateToProps = (state) => ({
+    getNews: (id) => state.news.filter((news) => news.id === Number(id))[0],
+})
 const mapDispatchToProps = (dispatch) => ({
     addNews: ({ title, descriptions, src }) =>
-        dispatch(newsActions.AddNews({ title, descriptions, src })),
+        dispatch(newsActions.addNews({ title, descriptions, src })),
+    editNews: ({ id, title, descriptions, src }) =>
+        dispatch(newsActions.editNews({ id, title, descriptions, src })),
 })
 
 AddNews.propTypes = {}

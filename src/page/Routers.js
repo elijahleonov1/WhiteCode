@@ -1,5 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import { Link } from 'react-router-dom'
 
 import { authActions } from '../store/rootActions'
 import { createBrowserHistory } from 'history'
@@ -41,6 +42,10 @@ const Routers = ({ isAuth, logout }) => {
                         />
                         <Route
                             path={'/admin-panel/add'}
+                            render={() => <AddNews />}
+                        />
+                        <Route
+                            path={'/admin-panel/edit/:id'}
                             render={() => <AddNews />}
                         />
                         <Route render={() => <div>not found</div>} />

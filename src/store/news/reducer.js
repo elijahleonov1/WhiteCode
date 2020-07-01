@@ -1,4 +1,4 @@
-import { DELETE_NEWS, ADD_NEWS } from './actionType'
+import { DELETE_NEWS, ADD_NEWS, EDIT_NEWS } from './actionType'
 
 const initialState = [
     {
@@ -8,33 +8,14 @@ const initialState = [
         editDate: null,
         descriptions: '',
     },
-    {
-        id: 1,
-        title: 'title',
-        src: '#',
-        editDate: null,
-        descriptions: '',
-    },
-    {
-        id: 2,
-        title: 'title',
-        src: '#',
-        editDate: null,
-        descriptions: '',
-    },
-    {
-        id: 3,
-        title: 'title',
-        src: '#',
-        editDate: null,
-        descriptions: 'asdasdasdasd',
-    },
 ]
 
 export default function news(state = initialState, action) {
     switch (action.type) {
         case ADD_NEWS:
             return addNews(state, action.payload)
+        case EDIT_NEWS:
+            return editNews(state, action.payload)
         case DELETE_NEWS:
             return deleteNews(state, action.payload.id)
         default:
@@ -53,6 +34,19 @@ export const addNews = (state, news) => {
         {
             ...news,
             id: newsId,
+            editDate: new Date().toISOString(),
+        },
+    ]
+}
+
+export const editNews = (state, news) => {
+    const id = Number(news.id)
+    const oldNews = deleteNews(state, id)
+    return [
+        ...oldNews,
+        {
+            ...news,
+            id,
             editDate: new Date().toISOString(),
         },
     ]

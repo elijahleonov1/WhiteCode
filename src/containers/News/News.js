@@ -13,6 +13,7 @@ import {
 } from '@ant-design/icons'
 
 import s from './News.module.scss'
+import { Link } from 'react-router-dom'
 
 const { Meta } = Card
 
@@ -30,7 +31,10 @@ const News = ({ news, deleteNews }) => {
                     key="delete"
                     onClick={() => handleDeleteNews(data.id)}
                 />,
-                <EditOutlined key="edit" />,
+
+                <Link to={`/admin-panel/edit/${data.id}`}>
+                    <EditOutlined key="edit" />,
+                </Link>,
             ]}
         >
             <Meta title={data.title} description={data.descriptions} />
