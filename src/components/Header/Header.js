@@ -23,8 +23,8 @@ const Header = ({ logout }) => {
             <Menu.Item key="news" icon={<MailOutlined />}>
                 <Link to={'/admin-panel/news'}>Просмотр новостей</Link>
             </Menu.Item>
-            <Menu.Item key="edit" icon={<AppstoreOutlined />}>
-                <Link to={'/admin-panel/edit'}>Редактор новостей</Link>
+            <Menu.Item key="add" icon={<AppstoreOutlined />}>
+                <Link to={'/admin-panel/add'}>Добавить новость</Link>
             </Menu.Item>
             <Menu.Item
                 key="logout"
