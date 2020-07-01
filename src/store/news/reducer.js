@@ -1,14 +1,6 @@
 import { DELETE_NEWS, ADD_NEWS, EDIT_NEWS } from './actionType'
 
-const initialState = [
-    {
-        id: 0,
-        title: 'title',
-        src: '#',
-        editDate: null,
-        descriptions: '',
-    },
-]
+const initialState = []
 
 export default function news(state = initialState, action) {
     switch (action.type) {

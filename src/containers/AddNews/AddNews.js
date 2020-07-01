@@ -1,11 +1,11 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
 import { useParams } from 'react-router-dom'
 import { newsActions } from '../../store/rootActions'
 
 import PropTypes from 'prop-types'
 
-import { Form, Input, Button, Upload, Modal } from 'antd'
+import { Form, Input, Button, Upload, Modal, notification } from 'antd'
 import { UploadOutlined, InboxOutlined, PlusOutlined } from '@ant-design/icons'
 import s from './AddNews.module.scss'
 
@@ -41,7 +41,15 @@ const AddNews = ({ getNews, addNews, editNews }) => {
     const [previewImage, setPreviewImage] = useState(news.src || '')
     const [fileList, setFileList] = useState([])
 
+    useEffect(() => {
+        if (!queryId) {
+            form.resetFields()
+            setPreviewImage('')
+        }
+    }, [queryId])
+
     const onFinish = (values) => {
+        const title = queryId ? 'Новость отредактированна' : 'Новость добавлена'
         if (queryId) {
             editNews({ ...values, src: previewImage, id: queryId })
         } else {
@@ -50,6 +58,7 @@ const AddNews = ({ getNews, addNews, editNews }) => {
         }
 
         form.resetFields()
+        openNotification(title)
     }
 
     const onFinishFailed = (errorInfo) => {
@@ -69,6 +78,15 @@ const AddNews = ({ getNews, addNews, editNews }) => {
             <div className="ant-upload-text">Добавить</div>
         </div>
     )
+
+    const openNotification = (title) => {
+        notification.open({
+            message: title,
+            onClick: () => {
+                console.log('Notification Clicked!')
+            },
+        })
+    }
 
     return (
         <div className={s.AddNewsWrapper}>
@@ -141,6 +159,7 @@ const AddNews = ({ getNews, addNews, editNews }) => {
 const mapStateToProps = (state) => ({
     getNews: (id) => state.news.filter((news) => news.id === Number(id))[0],
 })
+
 const mapDispatchToProps = (dispatch) => ({
     addNews: ({ title, descriptions, src }) =>
         dispatch(newsActions.addNews({ title, descriptions, src })),
