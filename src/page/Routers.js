@@ -7,7 +7,7 @@ import { createBrowserHistory } from 'history'
 import PropTypes from 'prop-types'
 
 import {
-    BrowserRouter as Router,
+    HashRouter as Router,
     Redirect,
     Route,
     Switch,
@@ -27,7 +27,7 @@ const Routers = ({ isAuth, logout }) => {
     }
 
     return (
-        <Router>
+        <Router basename="/WhiteCodeDemo">
             {!isAuth && <Redirect to="/login" />}
 
             <Switch>
