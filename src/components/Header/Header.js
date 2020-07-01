@@ -21,10 +21,10 @@ const Header = ({ logout }) => {
     return (
         <Menu onClick={handleClick} selectedKeys={[current]} mode="horizontal">
             <Menu.Item key="news" icon={<MailOutlined />}>
-                <Link to={'/news'}>Просмотр новостей</Link>
+                <Link to={'/admin-panel/news'}>Просмотр новостей</Link>
             </Menu.Item>
             <Menu.Item key="edit" icon={<AppstoreOutlined />}>
-                <Link to={'/edit'}>Редактор новостей</Link>
+                <Link to={'/admin-panel/edit'}>Редактор новостей</Link>
             </Menu.Item>
             <Menu.Item
                 key="logout"
@@ -32,7 +32,7 @@ const Header = ({ logout }) => {
                 style={{ float: 'right' }}
                 onClick={logout}
             >
-                Выйти
+                <Link to={'/login'}>Выйти</Link>
             </Menu.Item>
         </Menu>
     )

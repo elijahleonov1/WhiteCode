@@ -34,7 +34,7 @@ const Login = ({ isAuth, isSpinner, errorMessage, fetchLogin, showSpnner }) => {
         console.log('Failed:', errorInfo)
     }
 
-    if (isAuth) return <Redirect to={{ pathname: '/' }} />
+    if (isAuth) return <Redirect to={'/'} />
 
     return (
         <>

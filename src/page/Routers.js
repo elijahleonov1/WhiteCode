@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 
 import { authActions } from '../store/rootActions'
-
+import { createBrowserHistory } from 'history'
 import PropTypes from 'prop-types'
 
 import {
@@ -10,13 +10,11 @@ import {
     Redirect,
     Route,
     Switch,
-    useHistory,
-    useLocation,
+    browserHistory,
 } from 'react-router-dom'
 
 import utils from '@utils'
 
-import PrivateRoute from './PrivateRoute'
 import Login from '../containers/Login'
 import Header from '../components/Header'
 
@@ -24,17 +22,30 @@ const Routers = ({ isAuth, logout }) => {
     const handleLogout = () => {
         logout()
     }
-    console.log(isAuth)
+
     return (
         <Router>
-            <Route path={'/login'} render={() => <Login />} />
-            <PrivateRoute render={() => <div>not found</div>} />
+            {!isAuth && <Redirect to="/login" />}
 
             <Switch>
-                <PrivateRoute exact isAuth={isAuth} path={'/'}>
+                <Redirect exact from="/" to="/admin-panel/news" />
+
+                <Route path={'/admin-panel'}>
                     <Header logout={handleLogout} />
-                    <Route path={'/news'} render={() => <div>news</div>} />
-                </PrivateRoute>
+                    <Switch>
+                        <Route
+                            path={'/admin-panel/news'}
+                            render={() => <div>news</div>}
+                        />
+                        <Route
+                            path={'/admin-panel/edit'}
+                            render={() => <div>edit</div>}
+                        />
+                        <Route render={() => <div>not found</div>} />
+                    </Switch>
+                </Route>
+
+                <Route path={'/login'} render={() => <Login />} />
             </Switch>
         </Router>
     )
