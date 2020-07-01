@@ -1,4 +1,4 @@
-import { DELETE_NEWS } from './actionType'
+import { DELETE_NEWS, ADD_NEWS } from './actionType'
 
 const initialState = [
     {
@@ -27,12 +27,14 @@ const initialState = [
         title: 'title',
         src: '#',
         editDate: null,
-        descriptions: '',
+        descriptions: 'asdasdasdasd',
     },
 ]
 
 export default function news(state = initialState, action) {
     switch (action.type) {
+        case ADD_NEWS:
+            return addNews(state, action.payload)
         case DELETE_NEWS:
             return deleteNews(state, action.payload.id)
         default:
@@ -42,4 +44,16 @@ export default function news(state = initialState, action) {
 
 export const deleteNews = (state, id) => {
     return [...state.filter((item) => item.id !== id)]
+}
+
+export const addNews = (state, news) => {
+    const neweId = state.length
+    return [
+        ...state,
+        {
+            id: neweId,
+            ...news,
+            editDate: new Date().toISOString(),
+        },
+    ]
 }

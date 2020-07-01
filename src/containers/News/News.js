@@ -38,7 +38,7 @@ const News = ({ news, deleteNews }) => {
                 <EditOutlined key="edit" />,
             ]}
         >
-            <Meta title="Card title" description="This is the description" />
+            <Meta title={data.title} description={data.descriptions} />
         </Card>
     )
     return (

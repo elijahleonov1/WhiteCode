@@ -23,14 +23,19 @@ const tailLayout = {
     },
 }
 
-const AddNews = ({}) => {
+const AddNews = ({ addNews }) => {
+    const [form] = Form.useForm()
+
     const onFinish = (values) => {
         console.log('Success:', values)
+        addNews(values)
+        form.resetFields()
     }
 
     const onFinishFailed = (errorInfo) => {
         console.log('Failed:', errorInfo)
     }
+
     const normFile = (e) => {
         console.log('Upload event:', e)
 
@@ -40,10 +45,12 @@ const AddNews = ({}) => {
 
         return e && e.fileList
     }
+
     return (
         <div className={s.AddNewsWrapper}>
             <Form
                 {...layout}
+                form={form}
                 name="basic"
                 initialValues={{
                     remember: true,
@@ -54,7 +61,7 @@ const AddNews = ({}) => {
             >
                 <Form.Item
                     label="Заголовок"
-                    name="Title"
+                    name="title"
                     rules={[
                         {
                             required: true,
@@ -80,7 +87,7 @@ const AddNews = ({}) => {
 
                 <Form.Item label="Картинка">
                     <Form.Item
-                        name="dragger"
+                        name="src"
                         valuePropName="fileList"
                         getValueFromEvent={normFile}
                         noStyle
@@ -103,10 +110,11 @@ const AddNews = ({}) => {
     )
 }
 
-const mapStateToProps = (state) => ({
-    news: state.news,
+const mapStateToProps = (state) => ({})
+const mapDispatchToProps = (dispatch) => ({
+    addNews: ({ title, descriptions, src }) =>
+        dispatch(newsActions.AddNews({ title, descriptions, src })),
 })
-const mapDispatchToProps = (dispatch) => ({})
 
 AddNews.propTypes = {}
 
