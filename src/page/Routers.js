@@ -17,6 +17,7 @@ import utils from '@utils'
 
 import Login from '../containers/Login'
 import Header from '../components/Header'
+import News from '../containers/News'
 
 const Routers = ({ isAuth, logout }) => {
     const handleLogout = () => {
@@ -35,7 +36,7 @@ const Routers = ({ isAuth, logout }) => {
                     <Switch>
                         <Route
                             path={'/admin-panel/news'}
-                            render={() => <div>news</div>}
+                            render={() => <News />}
                         />
                         <Route
                             path={'/admin-panel/edit'}
