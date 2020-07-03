@@ -7,7 +7,7 @@ import { createBrowserHistory } from 'history'
 import PropTypes from 'prop-types'
 
 import {
-    HashRouter as Router,
+    BrowserRouter as Router,
     Redirect,
     Route,
     Switch,
